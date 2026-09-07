@@ -1,0 +1,18 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Prabesh Sundar Taksari Portfolio logo">
+  <defs>
+    <radialGradient id="bg" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(190 150) rotate(49.3999) scale(280.25)">
+      <stop offset="0" stop-color="#1A1A1A"/>
+      <stop offset="1" stop-color="#050505"/>
+    </radialGradient>
+    <linearGradient id="ring" x1="150" y1="124" x2="360" y2="388" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FF5A5A"/>
+      <stop offset="1" stop-color="#C11212"/>
+    </linearGradient>
+  </defs>
+  <circle cx="256" cy="256" r="224" fill="url(#bg)"/>
+  <circle cx="256" cy="256" r="188" fill="none" stroke="url(#ring)" stroke-width="22"/>
+  <circle cx="256" cy="256" r="132" fill="#0D0D0D" stroke="#F4F4F4" stroke-opacity="0.08" stroke-width="2"/>
+  <path d="M198 308L256 170L314 308H282L256 244L230 308H198Z" fill="#FFFFFF"/>
+  <path d="M190 344H322" stroke="url(#ring)" stroke-width="18" stroke-linecap="round"/>
+  <circle cx="352" cy="158" r="12" fill="#FFFFFF" fill-opacity="0.9"/>
+</svg>
