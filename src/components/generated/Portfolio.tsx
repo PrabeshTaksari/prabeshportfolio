@@ -628,8 +628,8 @@ export const Portfolio = () => {
                         {tech.name}
                       </span>)}
                   </div>
-                  <a href={project.link} target="_blank" rel="noreferrer" onClick={(event) => handleProjectClick(event, project)} className="mt-8 inline-flex items-center gap-2 text-sm font-black[...]
-                    <span>View Project</span>
+                  <a href={project.link} target="_blank" rel="noopener,noreferrer" onClick={(event) => handleProjectClick(event, project)} className="mt-8 inline-flex items-center gap-2 text-sm font-black[...]
+                    <span>{project.link.includes("github.com") ? "View on GitHub" : "View Project"}</span>
                     <ExternalLink size={16} aria-hidden="true" />
                   </a>
                 </motion.article>)}
@@ -660,7 +660,7 @@ export const Portfolio = () => {
                 </article>;
               return certificate.image ? <button key={`${certificate.name}-${certificate.date}`} type="button" onClick={() => setPreviewCertificate(certificate)} className="block w-full text-left[...]
                   {card}
-                </button> : certificate.link ? <a key={`${certificate.name}-${certificate.date}`} href={certificate.link} target="_blank" rel="noreferrer" className="block">
+                </button> : certificate.link ? <a key={`${certificate.name}-${certificate.date}`} href={certificate.link} target="_blank" rel="noopener,noreferrer" className="block">
                   {card}
                 </a> : <div key={`${certificate.name}-${certificate.date}`}>
                   {card}
@@ -721,7 +721,7 @@ export const Portfolio = () => {
 
                 <div className="mt-10 space-y-5">
                   <article className="rounded-2xl border-l-2 border-[#E01010] bg-white/[0.04] p-5 transition-colors hover:bg-white/[0.06]">
-                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=taksariprabesh05@gmail.com" target="_blank" rel="noreferrer" className="group flex items-center gap-5" aria-label="Compo[...]
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=taksariprabesh05@gmail.com" target="_blank" rel="noopener,noreferrer" className="group flex items-center gap-5" aria-label="Compo[...]
                       <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-black transition-colors group-hover:text-[#E01010]">
                         <Mail size={22} aria-hidden="true" />
                       </span>
@@ -749,7 +749,7 @@ export const Portfolio = () => {
                     </div>
                   </article>
                   <article className="rounded-2xl border-l-2 border-[#E01010] bg-white/[0.04] p-5 transition-colors hover:bg-white/[0.06]">
-                    <a href="https://github.com/PrabeshTaksari" target="_blank" rel="noreferrer" className="group flex items-center gap-5" aria-label="Open GitHub profile for Prabesh Taksari">
+                    <a href="https://github.com/PrabeshTaksari" target="_blank" rel="noopener,noreferrer" className="group flex items-center gap-5" aria-label="Open GitHub profile for Prabesh Taksari">
                       <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-black transition-colors group-hover:text-[#E01010]">
                         <Github size={22} aria-hidden="true" />
                       </span>
