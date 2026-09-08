@@ -91,7 +91,7 @@ const INTERESTS: Interest[] = [{
 }];
 const PROJECTS: Project[] = [{
   title: "Intelligence Recon System",
-  description: "An AI-powered cybersecurity tool that scans domains, IPs, and URLs for vulnerabilities, using httpX and Naabu to probe targets and gather live clues such as open ports, services, and HTTP responses. A Gemini API intelligence layer analyzes those clues to decide which security tools are most suitable for the target, then automatically generates a structured vulnerability report with findings, risk levels, and AI-driven recommendations.",
+  description: "An AI-powered cybersecurity tool that scans domains, IPs, and URLs for vulnerabilities, using httpX and Naabu to probe targets and gather live clues such as open ports, services, a[...]
   tag: "Cybersecurity | Final Year Project",
   techStack: [{
     name: "HTML"
@@ -104,7 +104,7 @@ const PROJECTS: Project[] = [{
   }, {
     name: "Gemini API"
   }],
-  link: "#projects",
+  link: IRS_REPOSITORY_URL,
   featured: true,
   aiPowered: true
 }, {
@@ -245,8 +245,6 @@ export const Portfolio = () => {
   const [scrolled, setScrolled] = React.useState(false);
   const [activeSection, setActiveSection] = React.useState("home");
   const [previewCertificate, setPreviewCertificate] = React.useState<Certification | null>(null);
-  const [isIrsSetupPromptOpen, setIsIrsSetupPromptOpen] = React.useState(false);
-  const [irsHostHasFiles, setIrsHostHasFiles] = React.useState(false);
   const [profileImageSrc, setProfileImageSrc] = React.useState("/ba9e027c-9c1e-4aeb-b28e-2bca8d151629.jpeg");
   const [isSubmittingContact, setIsSubmittingContact] = React.useState(false);
 
@@ -256,45 +254,7 @@ export const Portfolio = () => {
     setActiveSection("home");
   }, []);
 
-  React.useEffect(() => {
-    if (!canUseLocalDevApis()) {
-      setIrsHostHasFiles(false);
-      return;
-    }
-
-    fetch("/api/irs-status")
-      .then(response => response.ok ? response.json() : null)
-      .then(data => setIrsHostHasFiles(Boolean(data?.hasFiles)))
-      .catch(() => setIrsHostHasFiles(false));
-  }, []);
-
-  const openIrsApp = async (asOwner: boolean) => {
-    const url = getIrsAppUrl(asOwner);
-
-    if (!url) {
-      toast.error("IRS live URL is not configured yet. Deploy IRS and set VITE_IRS_PUBLIC_URL.");
-      return;
-    }
-
-    if (asOwner && canUseLocalDevApis()) {
-      try {
-        await fetch("/api/start-irs", { method: "POST" });
-      } catch {
-        // Continue even if the local start helper is unavailable.
-      }
-    }
-
-    window.open(url, "_blank", "noopener,noreferrer");
-    setIsIrsSetupPromptOpen(false);
-  };
-
   const handleProjectClick = async (event: React.MouseEvent<HTMLAnchorElement>, project: Project) => {
-    if (project.title === "Intelligence Recon System") {
-      event.preventDefault();
-      setIsIrsSetupPromptOpen(true);
-      return;
-    }
-
     if (project.title === "Printer E-Commerce Website") {
       event.preventDefault();
 
@@ -361,7 +321,7 @@ export const Portfolio = () => {
         throw new Error("Message delivery failed");
       }
 
-      toast.success("Your message was sent successfully. I’ll get back to you soon.");
+      toast.success("Your message was sent successfully. I'll get back to you soon.");
       formElement.reset();
     } catch {
       toast.error("Sorry, your message could not be sent right now. Please try again.");
@@ -396,7 +356,7 @@ export const Portfolio = () => {
     };
   }, []);
   return <div className="min-h-screen bg-white font-sans text-black selection:bg-[#E01010] selection:text-white">
-      <nav className={cn("fixed left-0 top-0 z-50 w-full border-b border-white/10 transition-all duration-300", scrolled ? "bg-black/95 py-4 shadow-xl backdrop-blur-md" : "bg-black py-5")} aria-label="Primary navigation">
+      <nav className={cn("fixed left-0 top-0 z-50 w-full border-b border-white/10 transition-all duration-300", scrolled ? "bg-black/95 py-4 shadow-xl backdrop-blur-md" : "bg-black py-5")} aria-l[...]
         <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-5 md:px-8 lg:px-12">
           <a href="#home" className="group inline-flex items-center gap-3 text-white" aria-label="Prabesh Sundar Taksari home">
             <span className="h-2.5 w-2.5 rounded-full bg-[#E01010] transition-transform group-hover:scale-125" aria-hidden="true" />
@@ -407,13 +367,13 @@ export const Portfolio = () => {
             {NAV_LINKS.map(link => {
             const sectionId = link.href.replace("#", "");
             const isActive = activeSection === sectionId;
-            return <a key={link.name} href={link.href} onClick={() => setActiveSection(sectionId)} className={cn("text-sm font-medium transition-colors", isActive ? "text-[#E01010]" : "text-gray-300 hover:text-[#E01010]") }>
+            return <a key={link.name} href={link.href} onClick={() => setActiveSection(sectionId)} className={cn("text-sm font-medium transition-colors", isActive ? "text-[#E01010]" : "text-gray-[...]
                 <span>{link.name}</span>
               </a>;
           })}
           </div>
 
-          <button type="button" className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-white transition-colors hover:border-[#E01010] hover:text-[#E01010] md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)} aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"} aria-expanded={isMenuOpen}>
+          <button type="button" className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-white transition-colors hover:border-[#E01010] hover:text-[#E[...]
             {isMenuOpen ? <X size={22} aria-hidden="true" /> : <Menu size={22} aria-hidden="true" />}
           </button>
         </div>
@@ -474,10 +434,10 @@ export const Portfolio = () => {
                 </span>
               </p>
               <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-                <a href="#projects" className="inline-flex items-center justify-center rounded-full bg-[#E01010] px-7 py-4 text-sm font-bold uppercase tracking-[0.18em] text-white transition-all hover:-translate-y-0.5 hover:bg-[#bd0d0d]">
+                <a href="#projects" className="inline-flex items-center justify-center rounded-full bg-[#E01010] px-7 py-4 text-sm font-bold uppercase tracking-[0.18em] text-white transition-all [...]
                   <span>View My Work</span>
                 </a>
-                <a href="cv.pdf" download="cv.pdf" className="inline-flex items-center justify-center gap-3 rounded-full border border-white/25 px-7 py-4 text-sm font-bold uppercase tracking-[0.18em] text-white transition-all hover:-translate-y-0.5 hover:border-white hover:bg-white hover:text-black">
+                <a href="cv.pdf" download="cv.pdf" className="inline-flex items-center justify-center gap-3 rounded-full border border-white/25 px-7 py-4 text-sm font-bold uppercase tracking-[0.1[...]
                   <span>Download CV</span>
                   <Download size={18} aria-hidden="true" />
                 </a>
@@ -555,7 +515,7 @@ export const Portfolio = () => {
                 </p>
                 <p>
                   <span>
-                    I am passionate about web design, web development, UI/UX, and report writing. I value steady improvement, clear communication, and the careful craft required to turn technical ideas into usable products.
+                    I am passionate about web design, web development, UI/UX, and report writing. I value steady improvement, clear communication, and the careful craft required to turn technical[...]
                   </span>
                 </p>
               </div>
@@ -643,7 +603,7 @@ export const Portfolio = () => {
               once: true
             }} transition={{
               duration: 0.45
-            }} className={cn("flex min-h-[360px] flex-col rounded-3xl bg-white p-7 text-black shadow-[0_18px_55px_rgba(0,0,0,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(0,0,0,0.12)]", project.featured ? "border-l-4 border-[#E01010] md:col-span-2 lg:col-span-2" : "border-t-2 border-[#E01010]")}>
+            }} className={cn("flex min-h-[360px] flex-col rounded-3xl bg-white p-7 text-black shadow-[0_18px_55px_rgba(0,0,0,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[[...]
                   <div className="mb-7 flex items-start justify-between gap-5">
                     <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#E01010]">
                       <span>{project.tag}</span>
@@ -668,7 +628,7 @@ export const Portfolio = () => {
                         {tech.name}
                       </span>)}
                   </div>
-                  <a href={project.link} target="_blank" rel="noreferrer" onClick={(event) => handleProjectClick(event, project)} className="mt-8 inline-flex items-center gap-2 text-sm font-black uppercase tracking-[0.2em] text-black transition-colors hover:text-[#E01010]">
+                  <a href={project.link} target="_blank" rel="noreferrer" onClick={(event) => handleProjectClick(event, project)} className="mt-8 inline-flex items-center gap-2 text-sm font-black[...]
                     <span>View Project</span>
                     <ExternalLink size={16} aria-hidden="true" />
                   </a>
@@ -682,7 +642,7 @@ export const Portfolio = () => {
             <SectionTitle title="Certifications & Training" subtitle="A growing record of practical training across cloud, security, Linux, and product design fundamentals." />
             <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
               {CERTIFICATIONS.map(certificate => {
-              const card = <article className={cn("rounded-3xl border border-gray-200 bg-white p-6 shadow-[0_14px_40px_rgba(0,0,0,0.06)] transition-all hover:-translate-y-1 hover:border-gray-300", certificate.image ? "cursor-zoom-in" : "")}>
+              const card = <article className={cn("rounded-3xl border border-gray-200 bg-white p-6 shadow-[0_14px_40px_rgba(0,0,0,0.06)] transition-all hover:-translate-y-1 hover:border-gray-300"[...]
                   <div className="mb-5 flex items-center justify-between gap-4">
                     <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-100 text-[#E01010]">
                       {certificate.group === "AWS Academy" ? <ShieldCheck size={22} aria-hidden="true" /> : <Award size={22} aria-hidden="true" />}
@@ -698,7 +658,7 @@ export const Portfolio = () => {
                     <span>{certificate.date}</span>
                   </p>
                 </article>;
-              return certificate.image ? <button key={`${certificate.name}-${certificate.date}`} type="button" onClick={() => setPreviewCertificate(certificate)} className="block w-full text-left">
+              return certificate.image ? <button key={`${certificate.name}-${certificate.date}`} type="button" onClick={() => setPreviewCertificate(certificate)} className="block w-full text-left[...]
                   {card}
                 </button> : certificate.link ? <a key={`${certificate.name}-${certificate.date}`} href={certificate.link} target="_blank" rel="noreferrer" className="block">
                   {card}
@@ -736,71 +696,10 @@ export const Portfolio = () => {
                     <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#E01010]">Certificate Preview</p>
                     <h3 className="mt-1 text-xl font-black tracking-[-0.03em] text-black md:text-2xl">{previewCertificate.name}</h3>
                   </div>
-                  <button type="button" onClick={() => setPreviewCertificate(null)} className="rounded-full border border-gray-200 px-4 py-2 text-sm font-semibold text-black transition-colors hover:border-[#E01010] hover:text-[#E01010]">Close</button>
+                  <button type="button" onClick={() => setPreviewCertificate(null)} className="rounded-full border border-gray-200 px-4 py-2 text-sm font-semibold text-black transition-colors hov[...]
                 </div>
                 <div className="bg-gray-50 p-4 md:p-7">
                   <img src={previewCertificate.image} alt={previewCertificate.name} className="max-h-[75vh] w-full rounded-[1.5rem] object-contain" />
-                </div>
-              </motion.div>
-            </motion.div> : null}
-        </AnimatePresence>
-
-        <AnimatePresence>
-          {isIrsSetupPromptOpen ? <motion.div initial={{
-          opacity: 0
-        }} animate={{
-          opacity: 1
-        }} exit={{
-          opacity: 0
-        }} className="fixed inset-0 z-[60] flex items-center justify-center bg-black/80 px-4 py-8 backdrop-blur-sm" onClick={() => setIsIrsSetupPromptOpen(false)}>
-              <motion.div initial={{
-            opacity: 0,
-            scale: 0.96,
-            y: 14
-          }} animate={{
-            opacity: 1,
-            scale: 1,
-            y: 0
-          }} exit={{
-            opacity: 0,
-            scale: 0.96,
-            y: 14
-          }} className="w-full max-w-xl overflow-hidden rounded-[2rem] border border-white/10 bg-black text-white shadow-2xl" onClick={e => e.stopPropagation()}>
-                <div className="border-b border-white/10 px-6 py-5 md:px-8">
-                  <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#E01010]">Intelligence Recon System</p>
-                  <h3 className="mt-2 text-2xl font-black tracking-[-0.04em] md:text-3xl">How would you like to open IRS?</h3>
-                </div>
-
-                <div className="space-y-6 px-6 py-6 md:px-8 md:py-7">
-                  <p className="text-base leading-8 text-gray-300 md:text-lg">
-                    <span>
-                      Open the live Intelligence Recon System in your browser. Each device starts with its own clean default state. If you want the full source code to run locally, use the GitHub option.
-                    </span>
-                  </p>
-
-                  <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                    <button type="button" disabled={!canOpenIrsLive()} onClick={() => {
-                  void openIrsApp(false);
-                }} className="inline-flex flex-1 items-center justify-center rounded-full border border-white/15 px-6 py-4 text-sm font-bold uppercase tracking-[0.18em] text-white transition-colors hover:border-white hover:bg-white hover:text-black disabled:cursor-not-allowed disabled:opacity-40">
-                      <span>Open IRS app</span>
-                    </button>
-                    {irsHostHasFiles ? <button type="button" onClick={() => {
-                  void openIrsApp(true);
-                }} className="inline-flex flex-1 items-center justify-center rounded-full border border-[#E01010]/40 px-6 py-4 text-sm font-bold uppercase tracking-[0.18em] text-[#E01010] transition-colors hover:border-[#E01010] hover:bg-[#E01010] hover:text-white">
-                      <span>Open with my data</span>
-                    </button> : null}
-                    <button type="button" onClick={() => {
-                  window.open(IRS_REPOSITORY_URL, "_blank", "noopener,noreferrer");
-                  setIsIrsSetupPromptOpen(false);
-                }} className="inline-flex flex-1 items-center justify-center gap-2 rounded-full bg-[#E01010] px-6 py-4 text-sm font-bold uppercase tracking-[0.18em] text-white transition-colors hover:bg-[#bd0d0d]">
-                      <span>Install from GitHub</span>
-                      <ExternalLink size={16} aria-hidden="true" />
-                    </button>
-                  </div>
-
-                  <p className="text-xs leading-6 text-gray-500">
-                    <span>Install from GitHub downloads the source code. After setup, start the IRS server on your machine, then open it from here.</span>
-                  </p>
                 </div>
               </motion.div>
             </motion.div> : null}
@@ -822,7 +721,7 @@ export const Portfolio = () => {
 
                 <div className="mt-10 space-y-5">
                   <article className="rounded-2xl border-l-2 border-[#E01010] bg-white/[0.04] p-5 transition-colors hover:bg-white/[0.06]">
-                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=taksariprabesh05@gmail.com" target="_blank" rel="noreferrer" className="group flex items-center gap-5" aria-label="Compose email to taksariprabesh05@gmail.com in Gmail">
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=taksariprabesh05@gmail.com" target="_blank" rel="noreferrer" className="group flex items-center gap-5" aria-label="Compo[...]
                       <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-black transition-colors group-hover:text-[#E01010]">
                         <Mail size={22} aria-hidden="true" />
                       </span>
@@ -872,22 +771,22 @@ export const Portfolio = () => {
                       <label htmlFor="contact-name" className="text-xs font-black uppercase tracking-[0.2em] text-black">
                         <span>Name</span>
                       </label>
-                      <input id="contact-name" name="name" type="text" placeholder="Your Name" className="w-full rounded-2xl border border-gray-200 bg-gray-50 p-4 text-black outline-none transition-colors focus:border-black" />
+                      <input id="contact-name" name="name" type="text" placeholder="Your Name" className="w-full rounded-2xl border border-gray-200 bg-gray-50 p-4 text-black outline-none transiti[...]
                     </div>
                     <div className="space-y-2">
                       <label htmlFor="contact-email" className="text-xs font-black uppercase tracking-[0.2em] text-black">
                         <span>Email</span>
                       </label>
-                      <input id="contact-email" name="email" type="email" placeholder="yourmail@example.com" className="w-full rounded-2xl border border-gray-200 bg-gray-50 p-4 text-black outline-none transition-colors focus:border-black" />
+                      <input id="contact-email" name="email" type="email" placeholder="yourmail@example.com" className="w-full rounded-2xl border border-gray-200 bg-gray-50 p-4 text-black outline[...]
                     </div>
                   </div>
                   <div className="space-y-2">
                     <label htmlFor="contact-message" className="text-xs font-black uppercase tracking-[0.2em] text-black">
                       <span>Message</span>
                     </label>
-                    <textarea id="contact-message" name="message" rows={5} placeholder="Tell me about your project..." className="w-full resize-none rounded-2xl border border-gray-200 bg-gray-50 p-4 text-black outline-none transition-colors focus:border-black" />
+                    <textarea id="contact-message" name="message" rows={5} placeholder="Tell me about your project..." className="w-full resize-none rounded-2xl border border-gray-200 bg-gray-50 [...]
                   </div>
-                  <button type="submit" disabled={isSubmittingContact} className="inline-flex w-full items-center justify-center gap-3 rounded-full bg-black px-7 py-5 text-sm font-black uppercase tracking-[0.2em] text-white transition-all hover:-translate-y-0.5 hover:bg-[#E01010] disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:translate-y-0 disabled:hover:bg-black">
+                  <button type="submit" disabled={isSubmittingContact} className="inline-flex w-full items-center justify-center gap-3 rounded-full bg-black px-7 py-5 text-sm font-black uppercase[...]
                     <span>{isSubmittingContact ? "Sending..." : "Send Message"}</span>
                     <FileText size={18} aria-hidden="true" />
                   </button>
@@ -913,13 +812,13 @@ export const Portfolio = () => {
           </div>
 
           <div className="flex gap-4" aria-label="Social links">
-            <a href="#" className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 text-white transition-colors hover:border-[#E01010] hover:text-[#E01010]" aria-label="GitHub profile">
+            <a href="#" className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 text-white transition-colors hover:border-[#E01010] hover:text-[#E01010]" aria-la[...]
               <Github size={20} aria-hidden="true" />
             </a>
-            <a href="#" className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 text-white transition-colors hover:border-[#E01010] hover:text-[#E01010]" aria-label="LinkedIn profile">
+            <a href="#" className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 text-white transition-colors hover:border-[#E01010] hover:text-[#E01010]" aria-la[...]
               <Linkedin size={20} aria-hidden="true" />
             </a>
-            <a href="#" className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 text-white transition-colors hover:border-[#E01010] hover:text-[#E01010]" aria-label="Email Prabesh">
+            <a href="#" className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 text-white transition-colors hover:border-[#E01010] hover:text-[#E01010]" aria-la[...]
               <Mail size={20} aria-hidden="true" />
             </a>
           </div>
