@@ -6,7 +6,7 @@ Live site: https://prabeshportfolio-virid.vercel.app
 
 ## About
 
-BSc (Hons) Computer Networking and IT Security student at Islington College (London Metropolitan University), based in Dhulikhel, Nepal. Open to networking and IT support internships and entry-level roles.
+BSc (Hons) Computer Networking and IT Security student at Islington College (London Metropolitan University), based in Dhulikhel, Nepal. Open to networking, IT support, and cybersecurity internships and entry-level roles.
 
 ## Sections
 
